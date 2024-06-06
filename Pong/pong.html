@@ -1,0 +1,75 @@
+<html>
+<head>
+<title> Pong </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start() {
+sjs.open("target",1000,830);
+
+//Ball Objects and Properties
+var ball = new sjs.Image("Images/spike.png"); 
+ball.type = "ball";
+ball.setSize(111,112);
+ball.center();
+ball.friction = 0;
+ball.bounce();
+ball.pushRight(8);
+ball.pushUp(6);
+
+//Paddle 1
+var paddle1 = new sjs.Image("Images/green.png");
+paddle1.setSize(201,50);
+paddle1.right().top();a
+paddle1.friction = 1;
+paddle1.accel = 2;
+paddle1.type = "paddle"
+
+//Paddle 2
+var paddle2 = new sjs.Image("Images/blue.png");
+paddle2.setSize(201,50);
+paddle2.right().bottom();
+paddle2.friction = 1;
+paddle2.accel = 2;
+paddle2.type = "paddle"
+
+sjs.keyDown(D_KEY, function(){
+paddle1.pushRight();
+});
+
+sjs.keyDown(A_KEY, function(){
+paddle1.pushLeft();
+});
+
+sjs.keyDown(LEFT_KEY, function(){
+paddle2.pushLeft();
+});
+
+sjs.keyDown(RIGHT_KEY, function(){;
+paddle2.pushRight();
+});
+
+sjs.onHit("ball","paddle", function(ball,paddle){
+sjs.bounceOff(ball,paddle);
+});
+
+var score = 0;
+var score_txt = new sjs.Text("Score: 0",26, "orange");
+
+sjs.onHit("ball","paddle", function(ball,paddle){
+score = score + 1;;
+score_txt.setText("Score: "+score);
+sjs.bounceOff(ball,paddle);
+});
+
+sjs.onHit("ball",["top_screen","bottom_screen"], function(){
+window.location = "pong.html"; 
+});
+
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> Covid Pong
+<div id="target" style="margin:auto;background:rgb(255, 255, 255);"></div>
+</body>
+</html>
